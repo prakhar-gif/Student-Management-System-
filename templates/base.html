@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}EduManage{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="{{ url_for('login') }}"><i class="fa-solid fa-graduation-cap"></i> EduManage</a>
+  {% if session.get('user_id') %}
+  <nav>
+    {% if session.get('role') == 'admin' %}
+    <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('students') }}">Students</a>
+    <a href="{{ url_for('courses') }}">Courses</a>
+    <a href="{{ url_for('enrollments') }}">Enrollment</a>
+    <a href="{{ url_for('marks') }}">Marks</a>
+    <a href="{{ url_for('attendance') }}">Attendance</a>
+    {% else %}
+    <a href="{{ url_for('student_dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('student_profile') }}">Profile</a>
+    <a href="{{ url_for('marksheet') }}">PDF Marksheet</a>
+    {% endif %}
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </nav>
+  {% endif %}
+</header>
+{% with messages=get_flashed_messages(with_categories=true) %}
+<div class="flash-wrap">
+{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}
+</div>
+{% endwith %}
+{% block content %}{% endblock %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

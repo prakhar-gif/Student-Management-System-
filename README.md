@@ -1,113 +1,81 @@
-# Student-Management-System-
-A full-stack Student Management System built with Python Flask, SQLite, HTML, CSS, and JavaScript for managing students, courses, marks, attendance, grades, SGPA/CGPA, and PDF marksheets.
+# Student Management System Pro
 
-## 📌 Project Overview
+A full-stack Student Management System built with Flask, SQLite/MySQL, HTML, CSS and JavaScript.
 
-The Student Management System is designed to simplify and digitize common academic management tasks.
+## Features
 
-Instead of maintaining student information manually, administrators can manage student records, courses, marks, attendance, and enrollments from a web-based dashboard.
+- Admin and Student authentication
+- Student registration
+- Password hashing
+- Role-based access control
+- Admin dashboard
+- Student dashboard
+- Add/edit/delete students
+- Add/delete courses
+- Course enrollment
+- Marks management
+- Automatic grades
+- SGPA/CGPA calculation
+- Attendance management
+- Attendance warning below 75%
+- Student profile
+- PDF marksheet generation
+- SQLite by default
+- Optional MySQL configuration
+- ER diagram and DFD documentation
 
-Students can log in to their own portal and view their academic information such as marks, grades, attendance, SGPA, and CGPA.
+## Run on Windows
 
----
+```powershell
+python -m pip install -r requirements.txt
+python app.py
+```
 
-## ✨ Features
+Open http://127.0.0.1:5000
 
-### 👨‍💼 Admin Module
+Default admin:
+- Username: admin
+- Password: admin123
 
-The administrator can:
+A sample student:
+- Username: STU001
+- Password: student123
 
-- 🔐 Secure admin login
-- 👨‍🎓 Add new students
-- ✏️ Edit student information
-- 🗑️ Delete student records
-- 🔎 Search and manage students
-- 📚 Add and manage courses
-- 📝 Manage course enrollments
-- 📊 Enter and manage student marks
-- 📈 Calculate grades automatically
-- 🎯 Calculate SGPA and CGPA
-- 🕐 Manage student attendance
-- ⚠️ Identify students with attendance below 75%
-- 📄 Generate student marksheets in PDF
-- 👤 Manage student accounts
+## MySQL
 
----
+Set these environment variables before running:
 
-### 👨‍🎓 Student Module
+```powershell
+$env:DB_TYPE="mysql"
+$env:MYSQL_HOST="localhost"
+$env:MYSQL_PORT="3306"
+$env:MYSQL_USER="root"
+$env:MYSQL_PASSWORD="your_password"
+$env:MYSQL_DATABASE="student_management"
+python app.py
+```
 
-Students can:
+Create the database first:
 
-- 🔐 Login securely
-- 📊 View personal dashboard
-- 👤 View profile information
-- 📚 View enrolled courses
-- 📝 View marks
-- 🎓 View grades
-- 📈 View SGPA
-- 🏆 View CGPA
-- 🕐 View attendance
-- ⚠️ Check attendance warnings
-- 📄 Download marksheet
+```sql
+CREATE DATABASE student_management;
+```
 
----
+The application creates its tables automatically.
 
-## 🛠️ Technologies Used
-
-### Frontend
-
-- HTML5
-- CSS3
-- JavaScript
-- Responsive Web Design
-
-### Backend
-
-- Python
-- Flask
-
-### Database
-
-- SQLite
-
-### PDF Generation
-
-- ReportLab
-
-### Security
-
-- Werkzeug Password Hashing
-
----
-
-## 🏗️ System Architecture
+## Project Structure
 
 ```text
-                    ┌─────────────────────┐
-                    │       User          │
-                    │ Admin / Student     │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │    Web Browser      │
-                    │ HTML / CSS / JS     │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │    Flask Backend    │
-                    │      Python         │
-                    └──────────┬──────────┘
-                               │
-                 ┌─────────────┴─────────────┐
-                 │                           │
-                 ▼                           ▼
-       ┌─────────────────┐          ┌─────────────────┐
-       │ Authentication   │          │ Business Logic  │
-       └─────────────────┘          └────────┬────────┘
-                                             │
-                                             ▼
-                                  ┌────────────────────┐
-                                  │   SQLite Database  │
-                                  └────────────────────┘
+Student-Management-System-Pro/
+├── app.py
+├── database.py
+├── requirements.txt
+├── README.md
+├── templates/
+├── static/
+└── docs/
+```
+
+## Security note
+
+Change the Flask secret key and default passwords before deployment. This project is intended as an academic/project foundation; production deployment should add CSRF protection, stronger account policies, HTTPS, environment-based secrets, and audit logging.

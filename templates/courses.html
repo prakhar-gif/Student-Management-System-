@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Courses{% endblock %}
+{% block content %}
+<div class="container"><div class="heading"><div><h1>Courses</h1><p>Manage academic subjects.</p></div></div>
+<div class="card"><h2>Add Course</h2><form method="post" action="{{url_for('add_course')}}" class="form-grid">
+<div><label>Code</label><input name="code" required></div><div><label>Name</label><input name="name" required></div><div><label>Credits</label><input type="number" name="credits" min="1" max="10" value="3" required></div><div><button class="btn">Add Course</button></div>
+</form></div>
+<div class="grid3">{% for c in courses %}<div class="course"><i class="fa-solid fa-book"></i><small>{{c['code']}}</small><h3>{{c['name']}}</h3><p>{{c['credits']}} credits</p><a class="delete" onclick="return confirm('Delete course?')" href="{{url_for('delete_course',course_id=c['id'])}}">Delete</a></div>{% endfor %}</div>
+</div>
+{% endblock %}

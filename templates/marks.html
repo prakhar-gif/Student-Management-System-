@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Marks{% endblock %}
+{% block content %}
+<div class="container"><div class="heading"><div><h1>Marks Management</h1><p>Enter marks and automatic grades.</p></div></div>
+<div class="card"><form method="post" action="{{url_for('save_marks')}}" class="form-grid">
+<div><label>Student</label><select name="student_id">{% for s in students %}<option value="{{s['id']}}">{{s['student_id']}} - {{s['name']}}</option>{% endfor %}</select></div>
+<div><label>Course</label><select name="course_id">{% for c in courses %}<option value="{{c['id']}}">{{c['code']}} - {{c['name']}}</option>{% endfor %}</select></div>
+<div><label>Marks</label><input type="number" name="marks" min="0" max="100" step="0.01" required></div><div><button class="btn">Save Marks</button></div>
+</form></div>
+<div class="card"><div class="table-wrap"><table><tr><th>Student</th><th>Course</th><th>Marks</th><th>Grade</th></tr>
+{% for r in records %}<tr><td>{{r['student_id']}} - {{r['name']}}</td><td>{{r['code']}} - {{r['course_name']}}</td><td>{{r['marks']}}/100</td><td><span class="badge">{{grade(r['marks'])}}</span></td></tr>{% endfor %}
+</table></div></div></div>
+{% endblock %}

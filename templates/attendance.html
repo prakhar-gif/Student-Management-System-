@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block title %}Attendance{% endblock %}
+{% block content %}
+<div class="container"><div class="heading"><div><h1>Attendance</h1><p>Attendance below 75% is highlighted.</p></div></div>
+<div class="card"><form method="post" action="{{url_for('save_attendance')}}" class="form-grid">
+<div><label>Student</label><select name="student_id">{% for s in students %}<option value="{{s['id']}}">{{s['student_id']}} - {{s['name']}}</option>{% endfor %}</select></div>
+<div><label>Course</label><select name="course_id">{% for c in courses %}<option value="{{c['id']}}">{{c['code']}} - {{c['name']}}</option>{% endfor %}</select></div>
+<div><label>Total Classes</label><input type="number" name="total_classes" min="0" required></div><div><label>Attended Classes</label><input type="number" name="attended_classes" min="0" required></div>
+<div><button class="btn">Save Attendance</button></div></form></div>
+<div class="card"><div class="table-wrap"><table><tr><th>Student</th><th>Course</th><th>Total</th><th>Attended</th><th>Percentage</th></tr>
+{% for r in records %}{% set pct=(100*r['attended_classes']/r['total_classes']) if r['total_classes'] else 0 %}<tr><td>{{r['student_id']}} - {{r['name']}}</td><td>{{r['code']}} - {{r['course_name']}}</td><td>{{r['total_classes']}}</td><td>{{r['attended_classes']}}</td><td class="{% if pct < 75 %}warning{% else %}good{% endif %}">{{pct|round(1)}}% {% if pct < 75 %}⚠{% endif %}</td></tr>{% endfor %}
+</table></div></div></div>
+{% endblock %}

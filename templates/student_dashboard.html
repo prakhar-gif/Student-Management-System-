@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<div class="container"><div class="heading"><div><h1>Welcome, {{student['name']}}</h1><p>{{student['student_id']}} · {{student['department']}} · Semester {{student['semester']}}</p></div></div>
+<div class="stats">
+<div class="stat"><i class="fa-solid fa-star"></i><span>CGPA<b>{{summary['cgpa']}}</b></span></div>
+<div class="stat"><i class="fa-solid fa-percent"></i><span>Average<b>{{summary['percentage']}}%</b></span></div>
+<div class="stat"><i class="fa-solid fa-calendar-check"></i><span>Attendance<b>{{summary['attendance']}}%</b></span></div>
+<div class="stat"><i class="fa-solid fa-book"></i><span>Courses<b>{{summary['courses']}}</b></span></div>
+</div>
+<div class="actions"><a class="btn" href="{{url_for('student_profile')}}">Edit Profile</a><a class="btn secondary" href="{{url_for('marksheet')}}">Download PDF Marksheet</a></div>
+<div class="card"><h2>Academic Records</h2><div class="table-wrap"><table><tr><th>Course</th><th>Credits</th><th>Marks</th><th>Grade</th><th>Attendance</th></tr>
+{% for r in rows %}{% set pct=(100*r['attended_classes']/r['total_classes']) if r['total_classes'] else 0 %}<tr><td>{{r['code']}} - {{r['name']}}</td><td>{{r['credits']}}</td><td>{{r['marks']}}/100</td><td><span class="badge">{{grade(r['marks'])}}</span></td><td class="{% if pct < 75 %}warning{% endif %}">{{pct|round(1)}}% {% if pct < 75 %}⚠ Low{% endif %}</td></tr>{% endfor %}
+</table></div></div></div>
+{% endblock %}

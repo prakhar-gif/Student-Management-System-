@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}Enrollment{% endblock %}
+{% block content %}
+<div class="container"><div class="heading"><div><h1>Course Enrollment</h1><p>Assign courses to students.</p></div></div>
+<div class="card"><form method="post" action="{{url_for('add_enrollment')}}" class="form-grid">
+<div><label>Student</label><select name="student_id">{% for s in students %}<option value="{{s['id']}}">{{s['student_id']}} - {{s['name']}}</option>{% endfor %}</select></div>
+<div><label>Course</label><select name="course_id">{% for c in courses %}<option value="{{c['id']}}">{{c['code']}} - {{c['name']}}</option>{% endfor %}</select></div>
+<div><button class="btn">Enroll</button></div></form></div>
+<div class="card"><div class="table-wrap"><table><tr><th>Student</th><th>Course</th><th>Action</th></tr>
+{% for r in rows %}<tr><td>{{r['student_id']}} - {{r['name']}}</td><td>{{r['code']}} - {{r['course_name']}}</td><td><a class="delete" href="{{url_for('delete_enrollment',enrollment_id=r['id'])}}">Remove</a></td></tr>{% endfor %}
+</table></div></div></div>
+{% endblock %}

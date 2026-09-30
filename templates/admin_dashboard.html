@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="container">
+<div class="heading"><div><h1>Admin Dashboard</h1><p>Manage the complete academic system.</p></div></div>
+<div class="stats">
+<div class="stat"><i class="fa-solid fa-user-graduate"></i><span>Students<b>{{total_students}}</b></span></div>
+<div class="stat"><i class="fa-solid fa-book"></i><span>Courses<b>{{total_courses}}</b></span></div>
+<div class="stat"><i class="fa-solid fa-chart-line"></i><span>Average<b>{{average}}%</b></span></div>
+<div class="stat"><i class="fa-solid fa-circle-check"></i><span>Pass Rate<b>{{pass_rate}}%</b></span></div>
+</div>
+<div class="card"><div class="card-title"><h2>Recent Students</h2><a class="btn small" href="{{url_for('students')}}">Manage</a></div>
+<div class="table-wrap"><table><tr><th>ID</th><th>Name</th><th>Department</th><th>Semester</th><th>Email</th></tr>
+{% for s in recent_students %}<tr><td>{{s['student_id']}}</td><td>{{s['name']}}</td><td>{{s['department']}}</td><td>{{s['semester']}}</td><td>{{s['email']}}</td></tr>{% endfor %}
+</table></div></div></div>
+{% endblock %}

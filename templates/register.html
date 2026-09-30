@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block title %}Student Registration{% endblock %}
+{% block content %}
+<div class="auth"><div class="auth-card wide">
+<h1>Student Registration</h1><p>Create your student portal account.</p>
+<form method="post" class="form-grid">
+<div><label>Student ID</label><input name="student_id" required></div>
+<div><label>Full Name</label><input name="name" required></div>
+<div><label>Email</label><input type="email" name="email" required></div>
+<div><label>Password</label><input type="password" name="password" minlength="6" required></div>
+<div><label>Department</label><select name="department" required><option>Computer Science</option><option>Information Technology</option><option>Electronics</option><option>Mechanical</option><option>Civil</option></select></div>
+<div><label>Semester</label><select name="semester">{% for i in range(1,9) %}<option value="{{i}}">Semester {{i}}</option>{% endfor %}</select></div>
+<div class="full"><button class="btn">Register</button></div>
+</form>
+<a class="register-link" href="{{ url_for('login') }}">Back to login</a>
+</div></div>
+{% endblock %}
